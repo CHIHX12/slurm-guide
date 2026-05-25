@@ -60,18 +60,6 @@ sbatch -p gpu --gres=gpu:2 job.sh
 sbatch -p gpu --gres=gpu:4 --cpus-per-task=16 job.sh
 ```
 
-### 対話型 GPU セッション
-
-```bash
-srun -p gpu --gres=gpu:2 --cpus-per-task=8 --pty bash
-
-# セッション内で GPU を確認：
-nvidia-smi
-
-# 終わったら必ず exit！ターミナルを閉じても job は止まりません！
-exit
-```
-
 ---
 
 ## スクリプトの書き換え方
@@ -283,15 +271,6 @@ mpirun --mca btl_tcp_if_include eth0 -np 8 ./myprogram
 
 ---
 
-## 計算ノードへの直接 SSH
-
-```bash
-ssh gnode1   # GPU ノード（gnode1〜gnode6）
-ssh cnode1   # CPU ノード（cnode1〜cnode3）
-```
-
----
-
 ## よくある間違い
 
 ### ❌ GPU ジョブで `-p gpu` を忘れる
@@ -302,10 +281,6 @@ sbatch --gres=gpu:2 job.sh
 # 正しい
 sbatch -p gpu --gres=gpu:2 job.sh
 ```
-
-### ❌ ターミナルを閉じてジョブを止めようとする
-`srun --pty bash` はターミナルを閉じても**止まりません**。リソースを占有し続けます。  
-必ず `exit` を入力するか、`scancel <JOBID>` で止めてください。
 
 ### ❌ マルチノード MPI で --ntasks を忘れる
 ```bash

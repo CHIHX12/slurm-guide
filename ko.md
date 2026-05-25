@@ -60,18 +60,6 @@ sbatch -p gpu --gres=gpu:2 job.sh
 sbatch -p gpu --gres=gpu:4 --cpus-per-task=16 job.sh
 ```
 
-### 대화형 GPU 세션
-
-```bash
-srun -p gpu --gres=gpu:2 --cpus-per-task=8 --pty bash
-
-# 세션 안에서 GPU 확인：
-nvidia-smi
-
-# 끝나면 반드시 exit 입력！터미널을 닫아도 작업은 멈추지 않습니다！
-exit
-```
-
 ---
 
 ## 스크립트 수정 방법
@@ -283,15 +271,6 @@ mpirun --mca btl_tcp_if_include eth0 -np 8 ./myprogram
 
 ---
 
-## 계산 노드에 직접 SSH
-
-```bash
-ssh gnode1   # GPU 노드（gnode1〜gnode6）
-ssh cnode1   # CPU 노드（cnode1〜cnode3）
-```
-
----
-
 ## 자주 하는 실수
 
 ### ❌ GPU 작업에서 `-p gpu` 를 잊어버림
@@ -302,10 +281,6 @@ sbatch --gres=gpu:2 job.sh
 # 올바름
 sbatch -p gpu --gres=gpu:2 job.sh
 ```
-
-### ❌ 터미널을 닫아서 작업을 중지하려 함
-`srun --pty bash` 는 터미널을 닫아도 **멈추지 않습니다**. 계속 리소스를 점유합니다.  
-반드시 `exit` 를 입력하거나 `scancel <JOBID>` 로 중지하세요.
 
 ### ❌ 멀티 노드 MPI 에서 --ntasks 를 잊어버림
 ```bash

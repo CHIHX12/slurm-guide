@@ -60,18 +60,6 @@ sbatch -p gpu --gres=gpu:2 job.sh
 sbatch -p gpu --gres=gpu:4 --cpus-per-task=16 job.sh
 ```
 
-### Interactive GPU session
-
-```bash
-srun -p gpu --gres=gpu:2 --cpus-per-task=8 --pty bash
-
-# Verify GPU inside the session:
-nvidia-smi
-
-# Always exit properly — closing terminal does NOT stop the job!
-exit
-```
-
 ---
 
 ## Updating Your Job Scripts
@@ -284,15 +272,6 @@ mpirun --mca btl_tcp_if_include eth0 -np 8 ./myprogram
 
 ---
 
-## SSH Directly to Nodes
-
-```bash
-ssh gnode1   # GPU node (gnode1–gnode6)
-ssh cnode1   # CPU node (cnode1–cnode3)
-```
-
----
-
 ## Common Mistakes
 
 ### ❌ Forgot `-p gpu` for GPU jobs
@@ -303,10 +282,6 @@ sbatch --gres=gpu:2 job.sh
 # Correct
 sbatch -p gpu --gres=gpu:2 job.sh
 ```
-
-### ❌ Closing terminal to stop an interactive job
-Closing the terminal does **NOT** stop `srun --pty bash` — it keeps running.  
-Always use `exit` or `scancel <JOBID>`.
 
 ### ❌ Multi-node MPI without --ntasks
 ```bash

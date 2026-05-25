@@ -62,18 +62,6 @@ sbatch -p gpu --gres=gpu:2 job.sh
 sbatch -p gpu --gres=gpu:4 --cpus-per-task=16 job.sh
 ```
 
-### 互動式 GPU 視窗（自己直接操作）
-
-```bash
-srun -p gpu --gres=gpu:2 --cpus-per-task=8 --pty bash
-
-# 進入後確認 GPU：
-nvidia-smi
-
-# 用完記得輸入 exit 離開，不然會一直占用資源！
-exit
-```
-
 ---
 
 ## 工作腳本怎麼改
@@ -286,15 +274,6 @@ mpirun --mca btl_tcp_if_include eth0 -np 8 ./myprogram
 
 ---
 
-## 直接 SSH 登入節點
-
-```bash
-ssh gnode1   # GPU 節點（gnode1〜gnode6）
-ssh cnode1   # CPU 節點（cnode1〜cnode3）
-```
-
----
-
 ## 常見錯誤
 
 ### ❌ GPU 工作忘記加 `-p gpu`
@@ -305,10 +284,6 @@ sbatch --gres=gpu:2 job.sh
 # 對：
 sbatch -p gpu --gres=gpu:2 job.sh
 ```
-
-### ❌ 關掉終端以為工作會停
-互動式工作（`srun --pty bash`）關掉視窗**不會**自動停止，會繼續占用資源。  
-請用 `exit` 或 `scancel <JOBID>` 來結束。
 
 ### ❌ MPI 跨節點用 -N 但忘記設 --ntasks
 ```bash
