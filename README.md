@@ -14,5 +14,5 @@ Choose your language:
 | Partition | Nodes | Use |
 |-----------|-------|-----|
 | `cpu` ⭐ | cnode1–3 | CPU jobs (default) |
-| `gpu` | gnode1–6 | GPU jobs |
+| `gpu` | gnode1–7 | GPU jobs |
 | `all` | all nodes | all CPU jobs |

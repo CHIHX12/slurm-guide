@@ -14,7 +14,7 @@ Think of it like switching from one ride-sharing app to another. Same destinatio
 | Partition | Nodes | Purpose | Default |
 |-----------|-------|---------|---------|
 | `cpu` | cnode1, cnode2, cnode3 | CPU jobs | ⭐ YES (automatic if unspecified) |
-| `gpu` | gnode1–gnode6 | GPU jobs | NO (need `-p gpu`) |
+| `gpu` | gnode1–gnode7 | GPU jobs | NO (need `-p gpu`) |
 | `all` | all nodes | CPU on all nodes | NO |
 
 Each gnode: 40 CPU, 4× V100 GPU (16GB), 187GB RAM  

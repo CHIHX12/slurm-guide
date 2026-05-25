@@ -14,7 +14,7 @@
 | Partition | 노드 | 용도 | 기본값 |
 |-----------|------|------|--------|
 | `cpu` | cnode1, cnode2, cnode3 | CPU 작업 | ⭐ YES（지정 없으면 자동） |
-| `gpu` | gnode1〜gnode6 | GPU 작업 | NO（`-p gpu` 필요） |
+| `gpu` | gnode1〜gnode7 | GPU 작업 | NO（`-p gpu` 필요） |
 | `all` | 전체 노드 | 모든 노드 CPU 사용 | NO |
 
 각 gnode：CPU 40코어, V100 GPU × 4（16GB）, RAM 187GB  

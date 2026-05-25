@@ -14,7 +14,7 @@
 | Partition | ノード | 用途 | デフォルト |
 |-----------|--------|------|-----------|
 | `cpu` | cnode1, cnode2, cnode3 | CPU ジョブ | ⭐ YES（指定なしで自動） |
-| `gpu` | gnode1〜gnode6 | GPU ジョブ | NO（`-p gpu` が必要） |
+| `gpu` | gnode1〜gnode7 | GPU ジョブ | NO（`-p gpu` が必要） |
 | `all` | 全ノード | 全ノード CPU 利用 | NO |
 
 各 gnode：CPU 40コア、V100 GPU × 4（16GB）、RAM 187GB  

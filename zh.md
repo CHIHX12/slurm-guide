@@ -14,7 +14,7 @@
 | Partition | 節點 | 用途 | 預設 |
 |-----------|------|------|------|
 | `cpu` | cnode1, cnode2, cnode3 | CPU 工作 | ⭐ YES（不指定自動來這） |
-| `gpu` | gnode1〜gnode6 | GPU 工作 | NO（要加 `-p gpu`） |
+| `gpu` | gnode1〜gnode7 | GPU 工作 | NO（要加 `-p gpu`） |
 | `all` | 全部節點 | 所有節點 CPU | NO |
 
 每個 gnode：40 CPU、4× V100 GPU（16GB）、187GB RAM  
