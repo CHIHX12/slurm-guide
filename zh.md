@@ -274,6 +274,44 @@ mpirun --mca btl_tcp_if_include eth0 -np 8 ./myprogram
 
 ---
 
+## Conda 環境使用方法
+
+> **注意**：不能在腳本裡直接用 `conda activate`，因為 sbatch 是非互動式 shell，不會載入 conda init。請用以下方法：
+
+### 方法 1：source activate（推薦，sbatch 腳本用）
+
+```bash
+#!/bin/bash
+#SBATCH -p gpu
+#SBATCH --gres=gpu:2
+#SBATCH --output=%j.out
+
+source /path/to/your/miniforge3/bin/activate 你的env名稱
+python train.py
+```
+
+### 方法 2：conda run（指令列快速使用）
+
+```bash
+srun -p gpu --gres=gpu:2 conda run -n 你的env名稱 python train.py
+```
+
+### 方法 3：直接用完整路徑（最穩定）
+
+```bash
+srun -p gpu --gres=gpu:2 /path/to/miniforge3/envs/你的env名稱/bin/python train.py
+```
+
+### 自己的 conda 路徑怎麼查？
+
+```bash
+which conda
+# 例：/home/username/miniforge3/bin/conda
+# 則 activate 路徑為：/home/username/miniforge3/bin/activate
+```
+
+---
+
 ## 常見錯誤
 
 ### ❌ GPU 工作忘記加 `-p gpu`

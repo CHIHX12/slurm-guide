@@ -272,6 +272,44 @@ mpirun --mca btl_tcp_if_include eth0 -np 8 ./myprogram
 
 ---
 
+## Using Conda Environments
+
+> **Note**: You cannot use `conda activate` directly in sbatch scripts — sbatch runs as a non-interactive shell and does not load conda init. Use one of the methods below instead.
+
+### Method 1: source activate (recommended for sbatch scripts)
+
+```bash
+#!/bin/bash
+#SBATCH -p gpu
+#SBATCH --gres=gpu:2
+#SBATCH --output=%j.out
+
+source /path/to/your/miniforge3/bin/activate your_env_name
+python train.py
+```
+
+### Method 2: conda run (quick one-liners)
+
+```bash
+srun -p gpu --gres=gpu:2 conda run -n your_env_name python train.py
+```
+
+### Method 3: full path to Python (most robust)
+
+```bash
+srun -p gpu --gres=gpu:2 /path/to/miniforge3/envs/your_env_name/bin/python train.py
+```
+
+### How to find your conda path
+
+```bash
+which conda
+# e.g. /home/username/miniforge3/bin/conda
+# activate path: /home/username/miniforge3/bin/activate
+```
+
+---
+
 ## Common Mistakes
 
 ### ❌ Forgot `-p gpu` for GPU jobs

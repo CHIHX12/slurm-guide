@@ -271,6 +271,44 @@ mpirun --mca btl_tcp_if_include eth0 -np 8 ./myprogram
 
 ---
 
+## Conda 環境の使い方
+
+> **注意**：sbatch スクリプト内で `conda activate` を直接使うことはできません。sbatch は非対話型シェルで動くため、conda init が読み込まれません。以下の方法を使ってください。
+
+### 方法 1：source activate（推奨、sbatch スクリプト用）
+
+```bash
+#!/bin/bash
+#SBATCH -p gpu
+#SBATCH --gres=gpu:2
+#SBATCH --output=%j.out
+
+source /path/to/your/miniforge3/bin/activate 環境名
+python train.py
+```
+
+### 方法 2：conda run（コマンドラインで手軽に）
+
+```bash
+srun -p gpu --gres=gpu:2 conda run -n 環境名 python train.py
+```
+
+### 方法 3：フルパスで直接指定（最も確実）
+
+```bash
+srun -p gpu --gres=gpu:2 /path/to/miniforge3/envs/環境名/bin/python train.py
+```
+
+### 自分の conda パスを調べる方法
+
+```bash
+which conda
+# 例：/home/username/miniforge3/bin/conda
+# activate パス：/home/username/miniforge3/bin/activate
+```
+
+---
+
 ## よくある間違い
 
 ### ❌ GPU ジョブで `-p gpu` を忘れる
