@@ -275,7 +275,22 @@ mpirun --mca btl_tcp_if_include eth0 -np 8 ./myprogram
 
 > **注意**：sbatch スクリプト内で `conda activate` を直接使うことはできません。sbatch は非対話型シェルで動くため、conda init が読み込まれません。以下の方法を使ってください。
 
-### 方法 1：source activate（推奨、sbatch スクリプト用）
+### 方法 1：source ~/.bashrc（最も簡単、PBS の使い方に最も近い）
+
+スクリプトの先頭に `source ~/.bashrc` を1行追加するだけで、`conda activate` がそのまま使えます：
+
+```bash
+#!/bin/bash
+#SBATCH -p gpu
+#SBATCH --gres=gpu:2
+#SBATCH --output=%j.out
+
+source ~/.bashrc
+conda activate 環境名
+python train.py
+```
+
+### 方法 2：source activate フルパス指定
 
 ```bash
 #!/bin/bash

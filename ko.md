@@ -275,7 +275,22 @@ mpirun --mca btl_tcp_if_include eth0 -np 8 ./myprogram
 
 > **주의**：sbatch 스크립트 안에서 `conda activate` 를 직접 사용할 수 없습니다. sbatch 는 비대화형 셸로 실행되어 conda init 이 로드되지 않습니다. 아래 방법을 사용하세요.
 
-### 방법 1：source activate（권장, sbatch 스크립트용）
+### 방법 1：source ~/.bashrc（가장 간단, PBS 사용법과 가장 유사）
+
+스크립트 첫 줄에 `source ~/.bashrc` 를 추가하면 `conda activate` 를 그대로 사용할 수 있습니다：
+
+```bash
+#!/bin/bash
+#SBATCH -p gpu
+#SBATCH --gres=gpu:2
+#SBATCH --output=%j.out
+
+source ~/.bashrc
+conda activate 환경이름
+python train.py
+```
+
+### 방법 2：source activate 전체 경로 지정
 
 ```bash
 #!/bin/bash

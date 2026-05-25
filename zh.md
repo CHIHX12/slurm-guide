@@ -278,7 +278,22 @@ mpirun --mca btl_tcp_if_include eth0 -np 8 ./myprogram
 
 > **注意**：不能在腳本裡直接用 `conda activate`，因為 sbatch 是非互動式 shell，不會載入 conda init。請用以下方法：
 
-### 方法 1：source activate（推薦，sbatch 腳本用）
+### 方法 1：source ~/.bashrc（最簡單，跟 PBS 用法最接近）
+
+腳本開頭加一行 `source ~/.bashrc`，之後就可以直接用 `conda activate`：
+
+```bash
+#!/bin/bash
+#SBATCH -p gpu
+#SBATCH --gres=gpu:2
+#SBATCH --output=%j.out
+
+source ~/.bashrc
+conda activate 你的env名稱
+python train.py
+```
+
+### 方法 2：source activate 完整路徑
 
 ```bash
 #!/bin/bash

@@ -276,7 +276,22 @@ mpirun --mca btl_tcp_if_include eth0 -np 8 ./myprogram
 
 > **Note**: You cannot use `conda activate` directly in sbatch scripts — sbatch runs as a non-interactive shell and does not load conda init. Use one of the methods below instead.
 
-### Method 1: source activate (recommended for sbatch scripts)
+### Method 1: source ~/.bashrc (easiest — closest to PBS behavior)
+
+Add `source ~/.bashrc` at the top of your script, then use `conda activate` normally:
+
+```bash
+#!/bin/bash
+#SBATCH -p gpu
+#SBATCH --gres=gpu:2
+#SBATCH --output=%j.out
+
+source ~/.bashrc
+conda activate your_env_name
+python train.py
+```
+
+### Method 2: source activate with full path
 
 ```bash
 #!/bin/bash
